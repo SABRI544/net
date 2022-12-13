@@ -3,17 +3,17 @@ const API_URL = "https://api.themoviedb.org/3/";
 
 const fetchMovies = async (endpoint) => {
   return await fetch(
-    `${API_URL}${endpoint}&language=fr-FR&api_key=${API_KEY}`
+    `${API_URL}${endpoint}?language=fr-FR&api_key=${API_KEY}`
   ).then((response) => response.json());
 };
 
 export default {
-  getMovies: async () => {
+  getHomeMovies: async () => {
     return [
       {
         slug: "top-rated",
         title: "Mieux notés",
-        items: await fetchMovies("movie/top-rated"),
+        items: await fetchMovies("movie/top_rated"),
       },
       {
         slug: "upcoming",
@@ -22,48 +22,30 @@ export default {
       },
       {
         slug: "trend-allweek",
-        title: "Tendancess",
+        title: "Tendances",
         items: await fetchMovies("trending/all/week"),
       },
       {
         slug: "action",
         title: "Action",
-        items: await fetchMovies("movie?with_genre=28"),
+        items: await fetchMovies("discover/movie?with_genre=28"),
       },
+
       {
-        slug: "horror",
-        title: "Horreur",
-        items: await fetchMovies("movie?with_genre=27"),
+        slug: "nowplaying",
+        title: "Au cinéma",
+        items: await fetchMovies("movie/now_playing"),
       },
+
       {
-        slug: "romance",
-        title: "Romantique",
-        items: await fetchMovies("movie?with_genre=10749"),
-      },
-      {
-        slug: "comedy",
-        title: "Comédies",
-        items: await fetchMovies("movie?with_genre=35"),
-      },
-      {
-        slug: "documentary",
-        title: "Documentaires",
-        items: await fetchMovies("movie?with_genre=99"),
+        slug: "ontheair",
+        title: "A l'écran",
+        items: await fetchMovies("tv/on_the_air"),
       },
       {
         slug: "popular-tv",
         title: "Séries populaires",
-        items: await fetchMovies("tv/popular"),
-      },
-      {
-        slug: "popular-tv",
-        title: "Séries populaires",
-        items: await fetchMovies("tv/popular"),
-      },
-      {
-        slug: "popular-tv",
-        title: "Séries populaires",
-        items: await fetchMovies("tv/popular"),
+        items: await fetchMovies("discover/tv?with_type=2"),
       },
     ];
   },
